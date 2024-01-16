@@ -1,0 +1,50 @@
+{
+  "name": "@ryanmorr/kind",
+  "description": "A simply versatile type checking library",
+  "version": "0.1.0",
+  "license": "Unlicense",
+  "author": "Ryan Morr",
+  "homepage": "https://github.com/ryanmorr/kind",
+  "bugs": "https://github.com/ryanmorr/kind/issues",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ryanmorr/kind.git"
+  },
+  "keywords": [
+    "javascript",
+    "type checking",
+    "type detection",
+    "utility"
+  ],
+  "type": "module",
+  "main": "dist/cjs/kind.js",
+  "module": "dist/esm/kind.js",
+  "browser": "dist/umd/kind.js",
+  "exports": {
+    ".": {
+      "browser": "./dist/umd/kind.js",
+      "import": "./dist/esm/kind.js",
+      "require": "./dist/cjs/kind.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "lint": "eslint src/** test/specs/**",
+    "test": "mocha test/specs/**/*.js --reporter spec",
+    "build": "rollup -c"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-node-resolve": "^15.0.1",
+    "@rollup/plugin-terser": "^0.4.0",
+    "chai": "^4.3.7",
+    "eslint": "^8.33.0",
+    "mocha": "^10.2.0",
+    "rollup": "^3.14.0",
+    "rollup-plugin-generate-package-json": "^3.2.0",
+    "sinon": "^15.0.1",
+    "terser": "^5.16.3"
+  }
+}
