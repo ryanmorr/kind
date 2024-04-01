@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { kind, KIND_STRING, KIND_NUMBER, KIND_BOOLEAN, KIND_ARRAY, KIND_FUNCTION} from '../../src/kind.js';
+import { kind, KIND_STRING, KIND_NUMBER, KIND_BOOLEAN } from '../../src/kind.js';
 
 describe('kind', () => {
     it('should detect a string', () => {
