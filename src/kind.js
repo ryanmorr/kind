@@ -18,3 +18,5 @@ export function def(check) {
 export const KIND_STRING = def((obj) => getClass(obj) === 'string');
 export const KIND_NUMBER = def((obj) => getClass(obj) === 'number');
 export const KIND_BOOLEAN = def((obj) => getClass(obj) === 'boolean');
+export const KIND_ARRAY = def(Array.isArray);
+export const KIND_FUNCTION = def((obj) => typeof obj === 'function');
