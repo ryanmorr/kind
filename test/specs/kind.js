@@ -20,7 +20,8 @@ import {
     KIND_SET,
     KIND_WEAK_SET,
     KIND_PROMISE,
-    KIND_GLOBAL
+    KIND_GLOBAL,
+    KIND_ITERABLE
 } from '../../src/kind.js';
 
 describe('kind', () => {
@@ -123,6 +124,35 @@ describe('kind', () => {
 
     it('should detect weak sets', () => {
         expect(kind(new WeakSet(), KIND_WEAK_SET)).to.equal(true);
+    });
+
+    it('should detect iterables', () => {
+        expect(kind([], KIND_ITERABLE)).to.equal(true);
+        expect(kind(new Array(), KIND_ITERABLE)).to.equal(true);
+        expect(kind(new Map(), KIND_ITERABLE)).to.equal(true);
+        expect(kind(new Set(), KIND_ITERABLE)).to.equal(true);
+
+        function* generator() {
+            yield 1;
+        }
+
+        expect(kind(generator(), KIND_ITERABLE)).to.equal(true);
+
+        const custom = Object.create(null, {
+            [Symbol.iterator]: {
+                value: () => ({
+                    items: Object.entries(custom),
+                    next: function next() {
+                        return {
+                            done: this.items.length === 0,
+                            value: this.items.shift()
+                        };
+                    }
+                })
+            }
+        });
+
+        expect(kind(custom, KIND_ITERABLE)).to.equal(true);
     });
 
     it('should detect promises', () => {
