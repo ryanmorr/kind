@@ -4,6 +4,10 @@ function getClass(obj) {
     return {}.toString.call(obj).slice(8, -1).toLowerCase();
 }
 
+function getClassChecker(cls) {
+    return (obj) => getClass(obj) == cls;
+}
+
 export function kind(obj, type) {
     if (type !== undefined) {
         const check = types.get(type);
@@ -24,21 +28,21 @@ export function def(check) {
 
 export const KIND_NULL = def((obj) => obj === null);
 export const KIND_UNDEFINED = def((obj) => obj === undefined);
-export const KIND_STRING = def((obj) => getClass(obj) === 'string');
-export const KIND_BOOLEAN = def((obj) => getClass(obj) === 'boolean');
+export const KIND_STRING = def(getClassChecker('string'));
+export const KIND_BOOLEAN = def(getClassChecker('boolean'));
 export const KIND_NAN = def(Number.isNaN);
-export const KIND_NUMBER = def((obj) => getClass(obj) === 'number');
-export const KIND_SYMBOL = def((obj) => getClass(obj) === 'symbol');
-export const KIND_OBJECT = def((obj) => getClass(obj) === 'object');
+export const KIND_NUMBER = def(getClassChecker('number'));
+export const KIND_SYMBOL = def(getClassChecker('symbol'));
+export const KIND_OBJECT = def(getClassChecker('object'));
 export const KIND_ARRAY = def(Array.isArray);
 export const KIND_FUNCTION = def((obj) => typeof obj === 'function');
-export const KIND_SET = def((obj) => getClass(obj) === 'set');
-export const KIND_WEAK_SET = def((obj) => getClass(obj) === 'weakset');
-export const KIND_MAP = def((obj) => getClass(obj) === 'map');
-export const KIND_WEAK_MAP = def((obj) => getClass(obj) === 'weakmap');
+export const KIND_SET = def(getClassChecker('set'));
+export const KIND_WEAK_SET = def(getClassChecker('weakset'));
+export const KIND_MAP = def(getClassChecker('map'));
+export const KIND_WEAK_MAP = def(getClassChecker('weakmap'));
 export const KIND_ITERABLE = def((obj) => Symbol.iterator in obj);
-export const KIND_REGEXP = def((obj) => getClass(obj) === 'regexp');
-export const KIND_DATE = def((obj) => getClass(obj) === 'date');
-export const KIND_ERROR = def((obj) => getClass(obj) === 'error');
-export const KIND_PROMISE = def((obj) => getClass(obj) === 'promise');
+export const KIND_REGEXP = def(getClassChecker('regexp'));
+export const KIND_DATE = def(getClassChecker('date'));
+export const KIND_ERROR = def(getClassChecker('error'));
+export const KIND_PROMISE = def(getClassChecker('promise'));
 export const KIND_GLOBAL = def((obj) => obj === globalThis);
