@@ -20,8 +20,7 @@ import {
     KIND_SET,
     KIND_WEAK_SET,
     KIND_PROMISE,
-    KIND_GLOBAL,
-    KIND_ITERABLE
+    KIND_GLOBAL
 } from '../../src/kind.js';
 
 describe('identify', () => {

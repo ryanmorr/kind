@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import sinon from 'sinon';
-import { def, kind } from '../../src/kind.js';
+import { def, kind, KIND_BOOLEAN, KIND_NUMBER, KIND_STRING } from '../../src/kind.js';
 
 describe('def', () => {
     it('should support custom types', () => {
@@ -20,5 +20,16 @@ describe('def', () => {
         expect(kind({bar: 2}, KIND_BAR)).to.equal(true);
         expect(kind({foo: 1, bar: 2})).to.not.equal(KIND_BAR);
         expect(kind({bar: 2})).to.equal(KIND_BAR);
+    });
+
+    it('should support custom group types', () => {
+        const KIND_PRIMITIVE = def([KIND_STRING, KIND_BOOLEAN, KIND_NUMBER]);
+
+        expect(kind('', KIND_PRIMITIVE)).to.equal(true);
+        expect(kind(123, KIND_PRIMITIVE)).to.equal(true);
+        expect(kind(true, KIND_PRIMITIVE)).to.equal(true);
+
+        expect(kind(null, KIND_PRIMITIVE)).to.equal(false);
+        expect(kind(Symbol(), KIND_PRIMITIVE)).to.equal(false);
     });
 });

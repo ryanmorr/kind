@@ -1,5 +1,6 @@
 const defaultTypes = new Map();
 const customTypes = new Map();
+const groupTypes = new Map();
 
 function getClass(obj) {
     return {}.toString.call(obj).slice(8, -1).toLowerCase();
@@ -31,14 +32,22 @@ function identifyType(obj, types) {
 
 export function kind(obj, type) {
     if (type !== undefined) {
-        return assertType(obj, type, customTypes) || assertType(obj, type, defaultTypes);
+        return assertType(obj, type, customTypes) || 
+            assertType(obj, type, defaultTypes) || 
+            assertType(obj, type, groupTypes);
     }
-    return identifyType(obj, customTypes) || identifyType(obj, defaultTypes) || KIND_UNKNOWN;
+    return identifyType(obj, customTypes) || 
+        identifyType(obj, defaultTypes) || 
+        KIND_UNKNOWN;
 }
 
 export function def(check) {
     const type = Symbol();
-    customTypes.set(type, check);
+    if (Array.isArray(check)) {
+        groupTypes.set(type, (obj) => check.some((t) => kind(obj, t)));
+    } else {
+        customTypes.set(type, check);
+    }
     return type;
 }
 
