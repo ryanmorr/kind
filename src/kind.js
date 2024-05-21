@@ -10,6 +10,10 @@ function getClassChecker(cls) {
     return (obj) => getClass(obj) == cls;
 }
 
+function getGroupTypeChecker(groupType) {
+    return (obj) => groupType.some((type) => kind(obj, type));
+}
+
 function defaultType(check) {
     const type = Symbol();
     defaultTypes.set(type, check);
@@ -27,7 +31,7 @@ function identifyType(obj, types) {
             return type;
         }
     }
-    return false;
+    return null;
 }
 
 export function kind(obj, type) {
@@ -44,7 +48,7 @@ export function kind(obj, type) {
 export function def(check) {
     const type = Symbol();
     if (Array.isArray(check)) {
-        groupTypes.set(type, (obj) => check.some((t) => kind(obj, t)));
+        groupTypes.set(type, getGroupTypeChecker(check));
     } else {
         customTypes.set(type, check);
     }
