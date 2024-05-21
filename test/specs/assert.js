@@ -131,6 +131,8 @@ describe('assert', () => {
         expect(kind(new Array(), KIND_ITERABLE)).to.equal(true);
         expect(kind(new Map(), KIND_ITERABLE)).to.equal(true);
         expect(kind(new Set(), KIND_ITERABLE)).to.equal(true);
+        expect(kind('foo', KIND_ITERABLE)).to.equal(true);
+        expect(kind(new String('bar'), KIND_ITERABLE)).to.equal(true);
 
         function* generator() {
             yield 1;
@@ -138,7 +140,7 @@ describe('assert', () => {
 
         expect(kind(generator(), KIND_ITERABLE)).to.equal(true);
 
-        const custom = Object.create(null, {
+        const iterable = Object.create(null, {
             [Symbol.iterator]: {
                 value: () => ({
                     items: Object.entries(custom),
@@ -152,7 +154,7 @@ describe('assert', () => {
             }
         });
 
-        expect(kind(custom, KIND_ITERABLE)).to.equal(true);
+        expect(kind(iterable, KIND_ITERABLE)).to.equal(true);
     });
 
     it('should assert promises', () => {

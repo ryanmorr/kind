@@ -69,7 +69,7 @@ export const KIND_SET = defaultType(getClassChecker('set'));
 export const KIND_WEAK_SET = defaultType(getClassChecker('weakset'));
 export const KIND_MAP = defaultType(getClassChecker('map'));
 export const KIND_WEAK_MAP = defaultType(getClassChecker('weakmap'));
-export const KIND_ITERABLE = defaultType((obj) => Symbol.iterator in obj);
+export const KIND_ITERABLE = defaultType((obj) => Symbol.iterator in Object(obj));
 export const KIND_REGEXP = defaultType(getClassChecker('regexp'));
 export const KIND_DATE = defaultType(getClassChecker('date'));
 export const KIND_ERROR = defaultType(getClassChecker('error'));
