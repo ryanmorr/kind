@@ -15,29 +15,25 @@ function defaultType(check) {
     return type;
 }
 
+function assertType(obj, type, types) {
+    const check = types.get(type);
+    return check ? check(obj) : false;
+}
+
+function identifyType(obj, types) {
+    for (const [type, check] of types) {
+        if (check(obj)) {
+            return type;
+        }
+    }
+    return false;
+}
+
 export function kind(obj, type) {
     if (type !== undefined) {
-        let check = customTypes.get(type);
-        if (check) {
-            return check(obj);
-        }
-        check = defaultTypes.get(type);
-        if (check) {
-            return check(obj);
-        }
-        return false;
+        return assertType(obj, type, customTypes) || assertType(obj, type, defaultTypes);
     }
-    for (const [type, check] of customTypes) {
-        if (check(obj)) {
-            return type;
-        }
-    }
-    for (const [type, check] of defaultTypes) {
-        if (check(obj)) {
-            return type;
-        }
-    }
-    return KIND_UNKNOWN;
+    return identifyType(obj, customTypes) || identifyType(obj, defaultTypes) || KIND_UNKNOWN;
 }
 
 export function def(check) {
