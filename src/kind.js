@@ -37,6 +37,7 @@ export function kind(obj, type) {
             return type;
         }
     }
+    return KIND_UNKNOWN;
 }
 
 export function def(check) {
@@ -65,3 +66,4 @@ export const KIND_DATE = defaultType(getClassChecker('date'));
 export const KIND_ERROR = defaultType(getClassChecker('error'));
 export const KIND_PROMISE = defaultType(getClassChecker('promise'));
 export const KIND_GLOBAL = defaultType((obj) => obj === globalThis);
+export const KIND_UNKNOWN = Symbol();
