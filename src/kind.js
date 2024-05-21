@@ -5,8 +5,15 @@ function getClass(obj) {
 }
 
 export function kind(obj, type) {
-    const check = types.get(type);
-    return check(obj);
+    if (type !== undefined) {
+        const check = types.get(type);
+        return check(obj);
+    }
+    for (const [type, check] of types) {
+        if (check(obj)) {
+            return type;
+        }
+    }
 }
 
 export function def(check) {
@@ -19,8 +26,8 @@ export const KIND_NULL = def((obj) => obj === null);
 export const KIND_UNDEFINED = def((obj) => obj === undefined);
 export const KIND_STRING = def((obj) => getClass(obj) === 'string');
 export const KIND_BOOLEAN = def((obj) => getClass(obj) === 'boolean');
-export const KIND_NUMBER = def((obj) => getClass(obj) === 'number');
 export const KIND_NAN = def(Number.isNaN);
+export const KIND_NUMBER = def((obj) => getClass(obj) === 'number');
 export const KIND_SYMBOL = def((obj) => getClass(obj) === 'symbol');
 export const KIND_OBJECT = def((obj) => getClass(obj) === 'object');
 export const KIND_ARRAY = def(Array.isArray);
