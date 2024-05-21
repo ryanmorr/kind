@@ -9,6 +9,9 @@
     "browser": true,
     "node": true
   },
+  "globals": {
+    "globalThis": "readonly"
+  },
   "rules": {
     "quotes": [
       "error",
