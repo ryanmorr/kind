@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import sinon from 'sinon';
 import { 
     kind,
     KIND_NULL,
@@ -70,7 +69,7 @@ describe('identify', () => {
 
     it('should identify objects', () => {
         expect(kind({})).to.equal(KIND_OBJECT);
-        expect(kind(new Object(),)).to.equal(KIND_OBJECT);
+        expect(kind(new Object())).to.equal(KIND_OBJECT);
         expect(kind(Object.create(null))).to.equal(KIND_OBJECT);
         expect(kind(Object.create(Object.prototype))).to.equal(KIND_OBJECT);
         expect(kind(new function(){})).to.equal(KIND_OBJECT);

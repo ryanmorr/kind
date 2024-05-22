@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import sinon from 'sinon';
 import { def, kind, KIND_BOOLEAN, KIND_NUMBER, KIND_STRING, KIND_ARRAY } from '../../src/kind.js';
 
 describe('def', () => {

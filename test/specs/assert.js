@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import sinon from 'sinon';
 import { 
     kind,
     KIND_NULL,
@@ -141,17 +140,7 @@ describe('assert', () => {
         expect(kind(generator(), KIND_ITERABLE)).to.equal(true);
 
         const iterable = Object.create(null, {
-            [Symbol.iterator]: {
-                value: () => ({
-                    items: Object.entries(custom),
-                    next: function next() {
-                        return {
-                            done: this.items.length === 0,
-                            value: this.items.shift()
-                        };
-                    }
-                })
-            }
+            [Symbol.iterator]: {}
         });
 
         expect(kind(iterable, KIND_ITERABLE)).to.equal(true);
