@@ -8,6 +8,7 @@ import {
     KIND_NUMBER,
     KIND_NAN,
     KIND_SYMBOL,
+    KIND_PLAIN_OBJECT,
     KIND_OBJECT,
     KIND_ARRAY,
     KIND_FUNCTION,
@@ -67,11 +68,14 @@ describe('identify', () => {
         expect(kind(Symbol.asyncIterator,)).to.equal(KIND_SYMBOL);
     });
 
+    it('should identify plain objects', () => {
+        expect(kind({})).to.equal(KIND_PLAIN_OBJECT);
+        expect(kind(new Object())).to.equal(KIND_PLAIN_OBJECT);
+        expect(kind(Object.create(null))).to.equal(KIND_PLAIN_OBJECT);
+        expect(kind(Object.create(Object.prototype))).to.equal(KIND_PLAIN_OBJECT);
+    });
+
     it('should identify objects', () => {
-        expect(kind({})).to.equal(KIND_OBJECT);
-        expect(kind(new Object())).to.equal(KIND_OBJECT);
-        expect(kind(Object.create(null))).to.equal(KIND_OBJECT);
-        expect(kind(Object.create(Object.prototype))).to.equal(KIND_OBJECT);
         expect(kind(new function(){})).to.equal(KIND_OBJECT);
     });
 

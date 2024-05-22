@@ -6,6 +6,14 @@ function getClass(obj) {
     return {}.toString.call(obj).slice(8, -1).toLowerCase();
 }
 
+function isPlainObject(obj) {
+    if (!obj || typeof obj !== 'object') {
+        return false;
+    }
+    const prototype = Object.getPrototypeOf(obj);
+    return prototype === null || prototype === Object.getPrototypeOf({});
+}
+
 function getClassChecker(cls) {
     return (obj) => getClass(obj) == cls;
 }
@@ -62,6 +70,7 @@ export const KIND_BOOLEAN = defaultType(getClassChecker('boolean'));
 export const KIND_NAN = defaultType(Number.isNaN);
 export const KIND_NUMBER = defaultType(getClassChecker('number'));
 export const KIND_SYMBOL = defaultType(getClassChecker('symbol'));
+export const KIND_PLAIN_OBJECT = defaultType(isPlainObject);
 export const KIND_OBJECT = defaultType(getClassChecker('object'));
 export const KIND_ARRAY = defaultType(Array.isArray);
 export const KIND_FUNCTION = defaultType((obj) => typeof obj === 'function');

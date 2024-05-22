@@ -8,6 +8,7 @@ import {
     KIND_NUMBER,
     KIND_NAN,
     KIND_SYMBOL,
+    KIND_PLAIN_OBJECT,
     KIND_OBJECT,
     KIND_ARRAY,
     KIND_FUNCTION,
@@ -66,6 +67,13 @@ describe('assert', () => {
         expect(kind(Symbol.for('foo'), KIND_SYMBOL)).to.equal(true);
         expect(kind(Symbol.iterator, KIND_SYMBOL)).to.equal(true);
         expect(kind(Symbol.asyncIterator, KIND_SYMBOL)).to.equal(true);
+    });
+
+    it('should assert plain objects', () => {
+        expect(kind({}, KIND_PLAIN_OBJECT)).to.equal(true);
+        expect(kind(new Object(), KIND_PLAIN_OBJECT)).to.equal(true);
+        expect(kind(Object.create(null), KIND_PLAIN_OBJECT)).to.equal(true);
+        expect(kind(Object.create(Object.prototype), KIND_PLAIN_OBJECT)).to.equal(true);
     });
 
     it('should assert objects', () => {
