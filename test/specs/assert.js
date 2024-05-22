@@ -164,4 +164,20 @@ describe('assert', () => {
         expect(kind(globalThis, KIND_GLOBAL)).to.equal(true);
         expect(kind(globalThis.globalThis, KIND_GLOBAL)).to.equal(true);
     });
+    
+    it('should assert an array of types', () => {
+        const types = [
+            KIND_STRING, 
+            KIND_NUMBER,
+            KIND_BOOLEAN
+        ];
+
+        expect(kind('foo', types)).to.equal(true);
+        expect(kind(123, types)).to.equal(true);
+        expect(kind(true, types)).to.equal(true);
+
+        expect(kind(null, types)).to.equal(false);
+        expect(kind([], types)).to.equal(false);
+        expect(kind({}, types)).to.equal(false);
+    });
 });

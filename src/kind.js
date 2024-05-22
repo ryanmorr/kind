@@ -19,7 +19,11 @@ function getClassChecker(cls) {
 }
 
 function getGroupTypeChecker(groupType) {
-    return (obj) => groupType.some((type) => kind(obj, type));
+    return (obj) => some(obj, groupType);
+}
+
+function some(obj, types) {
+    return types.some((type) => kind(obj, type));
 }
 
 function defaultType(check) {
@@ -44,6 +48,9 @@ function identifyType(obj, types) {
 
 export function kind(obj, type) {
     if (type !== undefined) {
+        if (Array.isArray(type)) {
+            return some(obj, type);
+        }
         return assertType(obj, type, customTypes) || 
             assertType(obj, type, defaultTypes) || 
             assertType(obj, type, groupTypes);
